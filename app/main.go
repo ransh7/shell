@@ -16,10 +16,11 @@ func main() {
 			os.Exit(1)
 		}
 		command = strings.TrimSpace(command)
-		switch command {
-		case "exit":
+		if command == "exit" {
 			os.Exit(0)
-		default:
+		} else if strings.HasPrefix(command, "echo") {
+			fmt.Println(strings.TrimSpace(strings.TrimPrefix(command, "echo")))
+		} else {
 			fmt.Println(command + ": command not found")
 		}
 	}
