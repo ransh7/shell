@@ -40,7 +40,20 @@ func main() {
 				fmt.Println(arg + " is " + path)
 			}
 		} else {
-			fmt.Println(command + ": command not found")
+			args := strings.Split(command, " ")
+			cmd := args[0]
+			args = args[1:]
+			_, err := exec.LookPath(cmd)
+			if err != nil {
+				fmt.Println(cmd + ": command not found")
+				continue
+			}
+			cmdStruct := exec.Command(cmd, args...)
+			out, err := cmdStruct.Output()
+			if err != nil {
+				fmt.Println(err)
+			}
+			fmt.Println(string(out))
 		}
 	}
 }
