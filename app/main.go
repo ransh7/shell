@@ -49,11 +49,12 @@ func main() {
 				continue
 			}
 			cmdStruct := exec.Command(cmd, args...)
-			out, err := cmdStruct.Output()
+			cmdStruct.Stdout = os.Stdout
+			cmdStruct.Stderr = os.Stderr
+			err = cmdStruct.Run()
 			if err != nil {
 				fmt.Println(err)
 			}
-			fmt.Println(string(out))
 		}
 	}
 }
