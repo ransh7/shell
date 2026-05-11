@@ -12,6 +12,7 @@ var builtinCommands = map[string]struct{}{
 	"echo": {},
 	"exit": {},
 	"type": {},
+	"pwd":  {},
 }
 
 func main() {
@@ -25,6 +26,12 @@ func main() {
 		command = strings.TrimSpace(command)
 		if command == "exit" {
 			os.Exit(0)
+		} else if command == "pwd" {
+			dir, err := os.Getwd()
+			if err != nil {
+				fmt.Println(err)
+			}
+			fmt.Println(dir)
 		} else if strings.HasPrefix(command, "echo") {
 			fmt.Println(strings.TrimSpace(strings.TrimPrefix(command, "echo")))
 		} else if strings.HasPrefix(command, "type") {
