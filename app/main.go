@@ -48,6 +48,12 @@ func main() {
 			}
 		} else if strings.HasPrefix(command, "cd") {
 			arg := strings.TrimSpace(strings.TrimPrefix(command, "cd"))
+			if arg == "~" {
+				arg, err = os.UserHomeDir()
+				if err != nil {
+					fmt.Println(err)
+				}
+			}
 			err = os.Chdir(arg)
 			if err != nil {
 				fmt.Println("cd: "+ arg + ": No such file or directory")
